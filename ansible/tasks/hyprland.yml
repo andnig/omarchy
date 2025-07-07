@@ -14,7 +14,7 @@
       become: true
 
     - name: Ensure Hyprland AUR packages are installed
-      aur:
+      kewlfft.aur.aur:
         name:
           - hyprshot
           - hyprpicker

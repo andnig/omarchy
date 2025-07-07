@@ -84,7 +84,6 @@ pacman:
   - libreoffice-fresh # Modern, full-featured office suite (or libreoffice-still for stable)
   - obs-studio # Open source live streaming and screen recording
   - kdenlive # Non-linear video editor
-  - pinta # Simple drawing/editing program (like Paint.NET)
   - xournalpp # Note-taking and PDF annotation
   - thunderbird # Email-Client
   - zsh # Shell
@@ -94,6 +93,7 @@ pacman:
   - zsh-completions
 
 yay:
+  - pinta # Simple drawing/editing program (like Paint.NET)
   - google-cloud-cli # Google Cloud SDK CLI
   - google-cloud-cli-bq # BigQuery command-line tool
   - google-cloud-cli-component-gke-gcloud-auth-plugin # GKE auth plugin for gcloud

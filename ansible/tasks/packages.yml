@@ -207,14 +207,12 @@
 - block:
     - name: Manage pacman packages
       pacman:
-        upgrade: yes
         name: "{{ pacman }}"
         state: latest
       become: true
 
     - name: Manage yay packages
       kewlfft.aur.aur:
-        upgrade: yes
         use: yay
         name: "{{ yay }}"
         state: latest
