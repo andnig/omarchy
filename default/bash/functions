@@ -2,6 +2,24 @@
 compress() { tar -czf "${1%/}.tar.gz" "${1%/}"; }
 alias decompress="tar -xzf"
 
+# Compression but zip
+zip_compress() {
+  if [ $# -eq 0 ]; then
+    echo "Usage: zip_compress <directory>"
+    return 1
+  fi
+  local dir="${1%/}"
+  zip -r "${dir}.zip" "$dir"
+}
+zip_decompress() {
+  if [ $# -eq 0 ]; then
+    echo "Usage: zip_decompress <zip_file>"
+    return 1
+  fi
+  local zip_file="$1"
+  unzip "$zip_file"
+}
+
 # Write iso file to sd card
 iso2sd() {
   if [ $# -ne 2 ]; then
