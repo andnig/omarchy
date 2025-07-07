@@ -92,6 +92,7 @@ pacman:
   - zsh-syntax-highlighting
   - zsh-completions
   - python-ruff
+  - npm
 
 yay:
   - pinta # Simple drawing/editing program (like Paint.NET)
