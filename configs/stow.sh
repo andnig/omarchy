@@ -5,8 +5,7 @@ if [[ -z $STOW_FOLDERS ]]; then
 	Darwin)
 		STOW_FOLDERS="kitty,karabiner,nvim,starship,tmux,vscode,zsh_macos,ssh,scripts,aerospace,ripgrep,yazi"
 	;;
-	Linux)
-
+  Linux)
     if [ -f /etc/os-release ]; then
       . /etc/os-release
       case "$ID" in
@@ -28,7 +27,8 @@ if [[ -z $STOW_FOLDERS ]]; then
           STOW_FOLDERS="kitty,nvim,starship,tmux,zsh_arch,ssh,scripts,ripgrep,yazi"
           ;;
       esac
-	;;
+    fi       # ← Fix: Close the 'if' before the next ';;'
+  ;;
 	esac
 fi
 
