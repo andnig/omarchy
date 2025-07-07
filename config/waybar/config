@@ -10,7 +10,7 @@
       "clock"
     ],
     "modules-right": [
-      "custom/dropbox",
+      "custom/onedrive",
       "bluetooth",
       "network",
       "pulseaudio",
@@ -113,10 +113,10 @@
         "performance":  "󰡴"
       }
     },
-    "custom/dropbox": {
+    "custom/onedrive": {
       "format": "",
-      "on-click": "nautilus ~/Dropbox",
-      "exec": "dropbox-cli status",
+      "on-click": "nautilus ~/OneDrive",
+      "exec": "onedrive status",
       "return-type": "text",
       "interval": 5,
       "tooltip": true,
