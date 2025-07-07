@@ -91,6 +91,7 @@ pacman:
   - zsh-autosuggestions
   - zsh-syntax-highlighting
   - zsh-completions
+  - python-ruff
 
 yay:
   - pinta # Simple drawing/editing program (like Paint.NET)
