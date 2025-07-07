@@ -31,10 +31,9 @@
           include "%H/.local/share/omarchy/default/xcompose"
 
           # Identification
-          <Multi_key> <space> <n> : "{{ lookup('env','OMARCHY_USER_NAME') | default('') }}"
-          <Multi_key> <space> <e> : "{{ lookup('env','OMARCHY_USER_EMAIL') | default('') }}"
+          <Multi_key> <space> <n> : "Andreas Nigg"
+          <Multi_key> <space> <e> : "andreas.nigg@devopsandmore.com"
         owner: "{{ lookup('env','USER') }}"
         group: "{{ lookup('env','USER') }}"
         mode: "0644"
-
   when: ansible_os_family == "Archlinux"

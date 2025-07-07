@@ -41,13 +41,13 @@
       when: ansible_os_family in ["Debian", "Archlinux"]
     - import_tasks: tasks/packages.yml
     - import_tasks: tasks/stow.yml
-    - import_tasks: tasks/omarchy_init.yml
+    - import_tasks: tasks/omarchyinit.yml
       when: ansible_os_family == "Archlinux"
     - import_tasks: tasks/bluetooth.yml
       when: ansible_os_family == "Archlinux"
     - import_tasks: tasks/kitty.yml
       # Kitty is installed with yay on arch
-      when: ansible_os_family in ["Debian", "Darwmin"]
+      when: ansible_os_family in ["Debian", "Darwin"]
     - import_tasks: tasks/hyprland.yml
       when: ansible_os_family == "Archlinux"
     - import_tasks: tasks/mamba.yml
@@ -55,7 +55,7 @@
       when: ansible_os_family == "Debian"
     - import_tasks: tasks/nvim.yml
       # Nvim is installed with yay on arch
-      when: ansible_os_family in ["Debian", "Darwmin"]
+      when: ansible_os_family in ["Debian", "Darwin"]
     - import_tasks: tasks/lazygit.yml
       # Lazygit is installed with brew on macOS and yay on arch
       when: ansible_os_family == "Debian"
@@ -69,7 +69,7 @@
       when: ansible_os_family == "Debian"
     - import_tasks: tasks/printer.yml
       when: ansible_os_family == "Archlinux"
-    - import_tasks: tasks/omarchy_extras.yml
+    - import_tasks: tasks/omarchyextras.yml
       when: ansible_os_family == "Archlinux"
     - import_tasks: tasks/wsl.yml
       when: ansible_os_family == "Debian"
