@@ -59,10 +59,22 @@
         state: directory
         mode: "0755"
 
-    - name: Clone fzf-zsh-plugin
+    - name: Clone ohmyzsh repo to temporary directory
       git:
-        repo: https://github.com/unixorn/fzf-zsh-plugin.git
-        dest: "{{ lookup('env','HOME') }}/.zsh/plugins/fzf-zsh-plugin"
-        update: yes
-        version: main
+        repo: https://github.com/ohmyzsh/ohmyzsh.git
+        dest: /tmp/ohmyzsh
+        depth: 1
+
+    - name: Copy tmux plugin folder to .zsh/plugins
+      copy:
+        src: /tmp/ohmyzsh/plugins/tmux
+        dest: "~/.zsh/plugins/"
+        remote_src: yes
+
+    - name: Remove temporary ohmyzsh repo
+      file:
+        path: /tmp/ohmyzsh
+        state: absent
+
   when: ansible_os_family == "Archlinux"
+  tags: *tags_for_zsh_tasks

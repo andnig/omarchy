@@ -1,5 +1,5 @@
-source ./source/shell
-source ./source/functions
+source ~/source/shell
+source ~/source/functions
 
 
 # If you come from bash you might have to change your $PATH.
@@ -13,6 +13,7 @@ export FZF_BASE=$HOME/.fzf/bin/fzf
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
 ZSH_THEME="robbyrussell"
 ZSH_TMUX_AUTOSTART=true
+ZSH_TMUX_AUTOQUIT=false
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
@@ -76,11 +77,16 @@ DISABLE_MAGIC_FUNCTIONS="true"
 # fpath+=${ZSH_CUSTOM:-${ZSH:-~/.oh-my-zsh}/custom}/plugins/zsh-completions/src
 # source $ZSH/oh-my-zsh.sh
 
+
+autoload -Uz compinit && compinit
+
 # Manual plugin loading
 source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.plugin.zsh
-source /usr/share/zsh/plugins/zsh-autocomplete/zsh-autocomplete.plugin.zsh
 source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.plugin.zsh
-source ~/.zsh/plugins/fzf-zsh-plugin/fzf-zsh-plugin.plugin.zsh
+source /usr/share/zsh/plugins/zsh-vi-mode/zsh-vi-mode.plugin.zsh
+source ~/.zsh/plugins/tmux/tmux.plugin.zsh
+# source /usr/share/zsh/plugins/zsh-autocomplete/zsh-autocomplete.plugin.zsh
+# source ~/.zsh/plugins/fzf-zsh-plugin/fzf-zsh-plugin.plugin.zsh
 
 # User configuration
 
@@ -123,7 +129,7 @@ alias lsa='ls -a'
 alias lt='eza --tree --level=2 --long --icons --git'
 alias lta='lt -a'
 alias ff="fzf --preview 'bat --style=numbers --color=always {}'"
-alias cat='batcat --style=plain,header'
+alias cat='bat --style=plain,header'
 alias cl='clear'
 alias cd="zd"
 zd() {
@@ -152,6 +158,21 @@ function ntfy() {
     curl -d $1 "https://ntfy.devopsandmore.com/devops_notify"
 } 
 
+# SSH Agent
+export SSH_AUTH_SOCK=~/.ssh/ssh-agent.$HOST.sock
+ALREADY_RUNNING=$(ssh-add -l > /dev/null; echo $?)
+
+if [[ $ALREADY_RUNNING != "0" ]]; then
+    if [[ -S $SSH_AUTH_SOCK ]]; then
+        # not expecting the socket to exist as the forwarding command isn't running (http://www.tldp.org/LDP/abs/html/fto.html)
+        rm $SSH_AUTH_SOCK
+    fi
+    ssh-add -l 2>/dev/null >/dev/null
+    if [ $? -ge 2 ]; then
+        ssh-agent -a "$SSH_AUTH_SOCK" >/dev/null
+        ssh-add
+    fi
+fi
 
 # pnpm
 export PNPM_HOME="$HOME/.local/share/pnpm"
@@ -214,3 +235,4 @@ bindkey -s ^f "tmux-windowizer.sh\n"
 bindkey -s ^w "tmux-windowizer.sh\n"
 
 eval "$(uv generate-shell-completion zsh)"
+

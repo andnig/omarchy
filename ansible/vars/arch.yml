@@ -112,3 +112,4 @@ yay:
   - signal-desktop # Encrypted desktop messenger (AUR: signal-desktop)
   - spotify # Music streaming client (AUR: spotify)
   - zoom # Video conferencing client (AUR: zoom)
+  - zsh-vi-mode
