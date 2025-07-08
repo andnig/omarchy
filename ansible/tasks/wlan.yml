@@ -1,0 +1,17 @@
+- name: Ensure user is in 'network' and 'wheel' groups, enable iwd
+  block:
+    - name: Add user to network and wheel groups
+      user:
+        name: "{{ ansible_env.USER }}"
+        groups: network,wheel
+        append: yes
+
+    - name: Enable iwd.service
+      systemd:
+        name: iwd.service
+        enabled: yes
+        state: started
+  when: ansible_os_family == "Archlinux"
+  tags:
+    - install
+    - wlan

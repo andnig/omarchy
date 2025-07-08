@@ -73,6 +73,8 @@
       when: ansible_os_family == "Archlinux"
     - import_tasks: tasks/wsl.yml
       when: ansible_os_family == "Debian"
+    - import_tasks: tasks/wlan.yml
+      when: ansible_os_family == "Archlinux"
   roles:
     - role: ecgalaxy.vscode
       include_vars:

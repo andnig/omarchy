@@ -93,6 +93,7 @@ pacman:
   - zsh-completions
   - python-ruff
   - npm
+  - impala # UI for wifi selection
 
 yay:
   - pinta # Simple drawing/editing program (like Paint.NET)
