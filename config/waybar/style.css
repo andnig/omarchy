@@ -36,3 +36,7 @@ tooltip label {
 }
 
 @import "../omarchy/current/theme/waybar.css";
+
+#workspaces button.active {
+  color: #38bdae;
+}
