@@ -1,5 +1,8 @@
-* {
-  background-color: #181824;
+@define-color background #181824;
+#workspaces button {
+  font-family: Noto Sans Mono;
+  color: #38bdae;
+  border-radius: 0;
 }
 
 #workspaces button.active {
