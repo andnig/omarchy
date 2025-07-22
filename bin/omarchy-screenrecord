@@ -1,0 +1,14 @@
+#!/bin/bash
+
+if pgrep -x wf-recorder >/dev/null; then
+  pkill -x wf-recorder
+  notify-send "Screen recording saved to ~/Videos" -t 2000
+else
+  region=$(slurp) || exit 1
+  notify-send "Screen recording starting..." -t 1000
+  sleep 1
+  wf-recorder \
+    -g "$region" \
+    -f "$HOME/Videos/screen-recording-$(date +'%Y-%m-%d_%H-%M-%S').mp4" \
+    -c libx264 -p crf=23 -p preset=medium -p movflags=+faststart
+fi
