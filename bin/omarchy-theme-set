@@ -43,8 +43,7 @@ fi
 pkill -SIGUSR2 btop
 
 # Restart components to apply new theme
-pkill waybar
-setsid waybar >/dev/null 2>&1 &
+pkill -SIGUSR2 waybar
 makoctl reload
 hyprctl reload
 

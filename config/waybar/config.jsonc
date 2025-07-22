@@ -5,7 +5,7 @@
   "spacing": 0,
   "height": 26,
   "modules-left": ["hyprland/workspaces"],
-  "modules-center": ["clock"],
+  "modules-center": ["clock", "custom/calendar"],
   "modules-right": [
     "group/tray-expander",
     "bluetooth",
@@ -45,10 +45,16 @@
     "format": "󰍛",
     "on-click": "kitty -e btop",
   },
+  "custom/calendar": {
+    "format": "󰃰",
+    "on-click": "kitty --class=Calcure -e calcure",
+  },
+
   "clock": {
-    "format": "{:%A %H:%M}",
+    "format": "{:%A %H:%M - %d.%B %Y CW%V}",
     "format-alt": "{:%d %B W%V %Y}",
-    "tooltip": false,
+    "tooltip": true,
+    "tooltip-format": "<big>{:%Y %B \t week: %V }</big>\n<tt>{calendar}</tt>",
   },
   "network": {
     "format-icons": ["󰤯", "󰤟", "󰤢", "󰤥", "󰤨"],
@@ -90,7 +96,7 @@
   },
   "pulseaudio": {
     "format": "{icon}",
-    "on-click": "pavucontrol",
+    "on-click": "kitty --class=Wiremix -e wiremix",
     "on-click-right": "pamixer -t",
     "tooltip-format": "Playing at {volume}%",
     "scroll-step": 5,
