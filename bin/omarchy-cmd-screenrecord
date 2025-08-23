@@ -9,12 +9,29 @@ else
   RECORDER_ARGS="--ffmpeg-encoder-options=\"-c:v libx264 -crf 23 -preset medium -movflags +faststart\""
 fi
 
+create_gif() {
+  local input="$1"
+  local width="$2"
+  local output="$3"
+  
+  notify-send "Converting to GIF..." -t 2000
+  ffmpeg -i "$input" -filter_complex "fps=15,scale=$width:-2,palettegen=stats_mode=full" /tmp/gif_palette.png -y
+  ffmpeg -i "$input" -i /tmp/gif_palette.png -filter_complex "[0]fps=15,scale=$width:-2[scaled];[scaled][1]paletteuse=dither=sierra2_4a" "$output" -y
+  notify-send "GIF saved to ~/Videos" -t 2000
+}
+
 screenrecording() {
   local filename
   filename="$HOME/Videos/screenrecording-$(date +'%Y-%m-%d_%H-%M-%S').mp4"
   notify-send "Screen recording starting..." -t 1000
   sleep 1
   eval "$RECORDER -f \"$filename\" $RECORDER_ARGS \"\$@\""
+  
+  # If gif option is specified, create a gif after recording
+  if [[ "$CREATE_GIF" == "true" ]]; then
+    local gif_filename="${filename%.mp4}.gif"
+    create_gif "$filename" "$GIF_WIDTH" "$gif_filename"
+  fi
 }
 
 stop_recording() {
@@ -25,6 +42,31 @@ stop_recording() {
   fi
   return 1
 }
+
+# Parse arguments for gif option
+CREATE_GIF="false"
+GIF_WIDTH="800"
+ARGS=()
+
+while [[ $# -gt 0 ]]; do
+  case $1 in
+    gif)
+      CREATE_GIF="true"
+      shift
+      ;;
+    --gif-width)
+      GIF_WIDTH="$2"
+      shift 2
+      ;;
+    *)
+      ARGS+=("$1")
+      shift
+      ;;
+  esac
+done
+
+# Restore positional parameters
+set -- "${ARGS[@]}"
 
 if stop_recording; then
   # Recording was stopped
